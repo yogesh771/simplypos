@@ -1,0 +1,2 @@
+name,code,barcode_symbology,brand,category_code,unit,sale_unit,purchase_unit,cost,price,alert_quantity,tax_rate,tax_method,image,subcategory_code,variants
+Product 11,PR-11,code128,Guess,C1,pc,pc,dozen,90,100,20,No Tax,exclusive,no_image.png,SC1,
