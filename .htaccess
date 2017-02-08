@@ -1,0 +1,56 @@
+DirectoryIndex index.php index.html
+
+<IfModule mod_rewrite.c>
+
+RewriteEngine On
+# RewriteBase /sma/
+RewriteCond $1 !^(index\.php|assets|install|update) 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# For godady Shared Hosting Server uncomment the line below
+# RewriteRule ^(.*)$ index.php?/$1 [L]
+
+# Please comment this if you have uncommented the above
+RewriteRule ^(.*)$ index.php?/$1 [NC,L,QSA]
+
+</IfModule>
+	
+
+# Enable GZIP
+<ifmodule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/x-javascript application/javascript
+BrowserMatch ^Mozilla/4 gzip-only-text/html
+BrowserMatch ^Mozilla/4\.0[678] no-gzip
+BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+</ifmodule>
+
+## EXPIRES CACHING ##
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresByType image/jpg "access 1 year"
+ExpiresByType image/jpeg "access 1 year"
+ExpiresByType image/gif "access 1 year"
+ExpiresByType image/png "access 1 year"
+ExpiresByType text/css "access 1 month"
+ExpiresByType application/pdf "access 1 month"
+ExpiresByType application/javascript "access 1 month"
+ExpiresByType application/x-javascript "access 1 month"
+ExpiresByType application/x-shockwave-flash "access 1 month"
+ExpiresByType image/x-icon "access 1 year"
+ExpiresDefault "access 2 days"
+</IfModule>
+## EXPIRES CACHING ##
+
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|xml|gz)$">
+    Header append Vary: Accept-Encoding
+  </FilesMatch>
+</IfModule>
+
+<FilesMatch "\.(css|js|jpg|png|gif)$">
+Header unset Cookie
+Header unset Set-Cookie
+</FilesMatch>
+

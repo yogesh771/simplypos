@@ -1,0 +1,192 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
+/*
+ * Module: Products
+ * Language: Marathi
+ *
+ * Last edited:
+ * 16th Dec 2016
+ *
+ * Package:
+ * Stock Manage Advance v3.0
+ *
+ * You can translate this file to your language.
+ * For instruction on new language setup, please visit the documentations.
+ * You also can share your language files by emailing to saleem@tecdiary.com
+ * Thank you
+ */
+
+$lang['add_product']                        = "उत्पादन जोडा";
+$lang['edit_product']                       = "उत्पादन संपादित करा";
+$lang['delete_product']                     = "उत्पादन हटवा";
+$lang['delete_products']                    = "उत्पादने हटवा";
+$lang['product_added']                      = "उत्पादन यशस्वीरित्या जोडले";
+$lang['product_updated']                    = "उत्पादन यशस्वीपणे अद्यतनित केले";
+$lang['product_deleted']                    = "उत्पादन यशस्वीरित्या हटवले";
+$lang['products_deleted']                   = "उत्पादने यशस्वीरित्या हटवले";
+$lang['alert_quantity']                     = "इशारा प्रमाण";
+$lang['rack']                               = "रॅक";
+$lang['set_rack']                           = "रॅक सेट";
+$lang['view_image']                         = "प्रतिमा पहा";
+$lang['add_damage_qty']                     = "नुकसान प्रमाण जोडा";
+$lang['product_details']                    = "उत्पादन तपशील";
+$lang['print_barcode']                      = "प्रिंट बारकोड";
+$lang['print_label']                        = "प्रिंट लेबल";
+$lang['duplicate_product']                  = "डुप्लिकेट उत्पादन";
+$lang['damage']                             = "नुकसान";
+$lang['barcode_qrcode']                     = "बारकोड &amp; क्यू आर कोडे ";
+$lang['standard']                           = "मानक";
+$lang['subcategory']                        = "उप श्रेणी";
+$lang['tax_rate']                           = "कर दर";
+$lang['tax_method']                         = "कर पद्धत";
+$lang['inclusive']                          = "समावेशक";
+$lang['barcode']                            = "बारकोड";
+$lang['label']                              = "लेबल";
+$lang['exclusive']                          = "विशेष";
+$lang['option']                             = "पर्याय";
+$lang['barcode_label']                      = "बारकोड/लेबल";
+$lang['barcode_sheet']                      = "बारकोड पत्रक";
+$lang['product_image']                      = "उत्पादन प्रतिमा";
+$lang['digital_file']                       = "डिजिटल फाइल";
+$lang['select_category_to_load']            = "कृपया लोड श्रेणी निवडा";
+$lang['select_subcategory']                 = "
+कृपया उप श्रेणी निवडा";
+$lang['combo']                              = "काँबो";
+$lang['digital']                            = "डिजिटल";
+$lang['service']                            = "सेवा";
+$lang['you_scan_your_barcode_too']          = "आपण आपल्या बारकोड स्कॅन करू शकता आणि खाली योग्य स्पष्टीकरण निवडा";
+$lang['supplier_price']                     = "पुरवठादार किंमत";
+$lang['warehouse_quantity']                 = "वखार प्रमाण";
+$lang['cost']                               = "खर्च";
+$lang['price']                              = "किंमत";
+$lang['please_add_items_below']             = "कृपया खालील वसतू जोडा";
+$lang['add_item']                           = "वसतू जोडा";
+$lang['combo_products']                     = "काँबो उत्पादने";
+$lang['custom_fields']                      = "सानुकूल फील्ड";
+$lang['product_details_for_invoice']        = "अशी यादी तयार करणे यासाठी उत्पादन तपशील";
+$lang['no_product_found']                   = "कोणतेही उत्पादन आढळले";
+$lang['max_reached']                        = "कमाल मर्यादा गाठलेली परवानगी दिली.";
+$lang['file_size_exceed']                   = "फाइल आकार पेक्षा जास्त";
+$lang['add_product_manually']               = "स्वतः उत्पादन जोडा";
+$lang['edit_quantity_not_recommended_here'] = "संपादन कोठार प्रमाणात येथे या शिफारस केलेली नाही यादी लेखा संबंधित समस्यांचे कारण होऊ शकते. कृपया बनावट विक्री जोडा किंवा कोठार योग्य प्रमाणात सेट खरेदी इन्व्हेंटरीवर लेखा समस्या निर्माण करणार नाही.";
+$lang['go_back']                            = "परत जा";
+$lang['empty_category']                     = "निवडलेल्या विभागातील रिक्त आहे";
+$lang['import_products_by_csv']             = "सी एस वी उत्पादने जोडा";
+$lang['category_code']                      = "वर्ग कोड";
+$lang['subcategory_code']                   = "उप वर्गात कोड";
+$lang['update_price_csv']                   = "सी एस वी करून सुधारणा उत्पादने किंमत";
+$lang['delete_damage_product']              = "नुकसान उत्पादन हटवा";
+$lang['edit_damage_details']                = "नुकसान तपशील संपादित करा";
+$lang['damage_quantity']                    = "नुकसान प्रमाण";
+$lang['add_damage_product']                 = "नुकसान उत्पादन जोडा";
+$lang['add_damage']                         = "नुकसान जोडा";
+$lang['warehouse_qty_is_less_than_damage']  = "वखार प्रमाणात नुकसान प्रमाण पेक्षा कमी आहे";
+$lang['warehouse_option_qty_is_less_than_damage'] = "निवडलेले कोठार मध्ये उत्पादन जिच्यामध्ये variant प्रमाणात नुकसान प्रमाणात पेक्षा कमी आहे";
+$lang['damage_product_added']               = "नुकसान तपशील यशस्वीरित्या जोडले";
+$lang['damage_product_updated']             = "नुकसान तपशील यशस्वीपणे अद्यतनित केले";
+$lang['damage_product_deleted']             = "नुकसान तपशील यशस्वीरित्या हटवले";
+$lang['edit_damage']                        = "नुकसान तपशील संपादित करा";
+$lang['check_product_code']                 = "कृपया उत्पादन कोड तपासा";
+$lang['code_x_exist']                       = "उत्पादन कोड अस्तित्वात नाही.";
+$lang['line_no']                            = "ओळ नंबर ";
+$lang['price_updated']                      = "उत्पादने यशस्वीरित्या अद्यतनित केला गेला किंमत";
+$lang['code_already_exist']                 = "उत्पादन कोड आधीच अस्तित्वात आहे.";
+$lang['check_category_code']                = "कृपया वर्गात कोड तपासा";
+$lang['category_code_x_exist']              = "वर्ग कोड अस्तित्वात नाही.";
+$lang['products_added']                     = "उत्पादने (%d) यशस्वीरित्या जोडले";
+$lang['product_has_attributes']             = "हे उत्पादन एकाधिक रूपे आहेत";
+$lang['eg_sizes_colors']                    = "उदा, अनेक आकार आणि / किंवा रंग";
+$lang['enter_attributes']                   = "स्वल्पविरामाने विभक्त केलेली रूपे प्रविष्ट करा";
+$lang['product_type']                       = "उत्पादन प्रकार";
+$lang['warehouse_quanitty']                 = "वखार प्रमाण";
+$lang['product_gallery_images']             = "उत्पादन गॅलरी प्रतिमा";
+$lang['no_product_selected']                = "कोणतेही उत्पादन निवडले. कृपया कमीत कमी एक उत्पादन निवडा.";
+$lang['rack_location']                      = "रॅक स्थान";
+$lang['rack_set']                           = "उत्पादन रॅक अद्यतनित केले गेले आहे";
+$lang['product_variants_quantity']          = "उत्पादन रूपे कोठार प्रमाणात";
+$lang['warehouse_name']                     = "वखार नाव";
+$lang['custom_field']                       = "सानुकूल फील्ड";
+$lang['no_qty_in_warehouse']                = "वखार हे उत्पादन नाही";
+$lang['product_variants']                   = "उत्पादन रूपे";
+$lang['wh_pr_qty_issue']                    = "<Strong> विनंती असमर्थ! </ Strong> वखार आणि उत्पादन प्रमाणात आयडी विविध रूपे. कोठार आणि उत्पादन रूपे योग्य प्रमाणात सेट करा.";
+$lang['purchases']                          = "खरेदी";
+$lang['damages']                            = "नुकसान";
+$lang['returns']                            = "परतावा";
+$lang['product_qty']                        = "उत्पादन (प्रमाण)";
+$lang['sale_reference']                     = "विक्री संदर्भ";
+$lang['product_variants_sep_by']            = "उत्पादन उभ्या बार वेगळे करून रूपे <strong>|</strong> ";
+$lang['not_with_variants']                  = "उत्पादन फक्त रूपे न";
+$lang['pprice_not_match_ciprice']           = "उत्पादन किंमत कॉम्बो वस्तू  'किंमत जुळत नाही";
+$lang['addition']                           = "या व्यतिरिक्त";
+$lang['subtraction']                        = "वजाबाकी";
+$lang['quantity_adjusted']                  = "उत्पादन प्रमाण यशस्वीरित्या सुस्थीत";
+$lang['adjustment_deleted']                 = "उत्पादन प्रमाण समायोजन यशस्वीरित्या हटवले";
+$lang['quantity_x_adjuste']                 = "उत्पादन प्रमाण समायोजित करणे शक्य नाही.  फक्त आपण मानक उत्पादने प्रमाणात समायोजित करू शकता ";
+$lang['label_printer']                      = "लेबल प्रिंटर";
+$lang['product_already_has_variant']        = "उत्पादन आधीच जिच्यामध्ये  प्रकार  आहे";
+$lang['sync_quantity']                      = "समक्रमण प्रमाण";
+$lang['products_quantity_sync']             = "उत्पादन प्रमाण यशस्वीरित्या समक्रमित झाले आहॆ";
+$lang['update_variants']                    = "सुधारणा उत्पादन रूपे";
+$lang['add_more_variants']                  = "अधिक उत्पादन रूपे जोडा";
+$lang['quantity_x_adjusted']                = "खरेदी आयटम रेकॉर्ड उत्पादन प्रमाण समायोजित करणे शक्य नाही. कृपया पहिल्या खरेदी जोडाखरेदी वस्तू  रेकॉर्ड उत्पादन प्रमाण समायोजित करणे शक्य नाही. कृपया पहिल्या खरेदी जोडा";
+$lang['style']                              = "शैली";
+$lang['30_per_sheet']                       = "३० पत्रक प्रति (२.६२५ \" x १ \")";
+$lang['20_per_sheet']                       = "२० पत्रक प्रति (४ \" x १ \")";
+$lang['14_per_sheet']                       = "१४ पत्रक प्रति (४ \" x १ .३३\")";
+$lang['10_per_sheet']                       = "१० पत्रक प्रति (४ \" x २\")";
+$lang['continuous_feed']                    = "सतत फीड";
+$lang['no_image_selected']                  = "उत्पादन प्रतिमा निवडलेले नाही";
+$lang['image_deleted']                      = "उत्पादन प्रतिमा यशस्वीरित्या हटवले";
+$lang['40_per_sheet']                       = "४० पत्रक प्रति (ए४) (१.७९९\" x १.००३\")";
+$lang['24_per_sheet']                       = "२४ पत्रक प्रति (ए४) (२.४८\" x १.३३४\")";
+$lang['18_per_sheet']                       = "१८ पत्रक प्रति (ए४) (२.५ \" x १.८३५ \")";
+$lang['12_per_sheet']                       = "१२ पत्रक प्रति (ए४) (२.५ \" x २.८३४\")";
+$lang['select_category']                    = "श्रेणी निवडा";
+$lang['or_select_category']                 = "<strong>ओ आर </strong><br>सर्व वर्गातील उत्पादने जोडण्यासाठी प्रमाण आणि श्रेणी निवडा";
+$lang['print_barcode_heading']              = "% S,% s भेट देऊ शकता,% s आणि% s हे छपाई यादी उत्पादने जोडण्यासाठी आहॆ.";
+$lang['barcode_tip']                        = "आपला प्रिंटर योग्य पेज आकार आणि मार्जिन सेट करण्यासाठी विसरू नका. डाव्या आणि शीर्ष समास आपल्या गरजेनुसार सुस्थीत केले जाऊ शकते, तर आपण 0 अधिकार आणि तळाशी सेट करू शकता.";
+$lang['width']                              = "रूंदी";
+$lang['height']                             = "उंची";
+$lang['inches']                             = "इंच";
+$lang['orientation']                        = "आवड";
+$lang['portrait']                           = "पोर्ट्रेट";
+$lang['landscape']                          = "लँडस्केप";
+$lang['promotion']                          = "जाहिरात";
+$lang['set_promotion']                      = "प्रमोशन सेट";
+$lang['promo_price']                        = "जाहिरात किंमत";
+$lang['start_date']                         = "प्रारंभ तारीख";
+$lang['end_date']                           = "शेवटची तारीख";
+$lang['save_image']                         = "प्रतिमा जतन करा";
+$lang['edit_adjustment']                    = "समायोजन संपादित करा";
+$lang['delete_adjustment']                  = "समायोजन हटवा";
+$lang['unit_code']                          = "युनिट कोड";
+$lang['price_addition']                     = "किंमत बेरीज";
+$lang['default_sale_unit']                  = "मुलभूत विक्री युनिट";
+$lang['default_purchase_unit']              = "मुलभूत खरेदी युनिट";
+$lang['select_unit_first']                  = "कृपया पहिल्या युनिट निवडा";
+$lang['check_unit']                         = "कृपया युनिट कोड तपासा";
+$lang['unit_code_x_exist']                  = "युनिट कोड अस्तित्वात नाही.";
+$lang['variant']                            = "वेरियेंट";
+$lang['details']                            = "माहिती";
+$lang['stock_count']                        = "शेअर संख्या";
+$lang['stock_counts']                       = "शेअर संख्या";
+$lang['download_csv_file']                  = "चालू स्टॉक सी एस वी फाइल डाउनलोड करा";
+$lang['full']                               = "पूर्ण";
+$lang['expected']                           = "अपेक्षित";
+$lang['counted']                            = "मोजले";
+$lang['stock_count_tip']                    = "आपण फक्त डाउनलोड सी एस वी  फाईलमध्ये मोजले स्तंभ अद्यतनित करणे आवश्यक आहे";
+$lang['please_select_type']                 = "कृपया सी फाइल निर्माण करण्यासाठी संख्या प्रकार (पूर्ण / आंशिक) निवडा.";
+$lang['stock_count_intiated']               = "शेअर संख्या सुरू डाउनलोड आणि निश्चित करण्यासाठी सी फाइल पूर्ण करा.";
+$lang['product_added_to_list']              = "उत्पादन बारकोडचा छपाई सूची जोडले जाते";
+$lang['products_added_to_list']             = "उत्पादने बारकोड छपाई यादी जोडले जातात";
+$lang['finalize_count']                     = "शेअर संख्या निश्चित";
+$lang['stock_count_finalized']              = "शेअर संख्या निश्चित करण्यात आली आहे";
+$lang['difference']                         = "फरक";
+$lang['differences']                        = "फरक";
+$lang['files']                              = "फायली";
+$lang['initial_file']                       = "प्रारंभिक फाइल";
+$lang['final_file']                         = "अंतिम फाइल";
+$lang['view_adjustment']                    = "समायोजन पहा";
+$lang['add_adjustment_by_csv']              = "सी एस वी करून समायोजन जोडा";
+$lang['quantity_colum_tip']                 = "नकारात्मक (-1) व्यतिरिक्त वजाबाकी आणि सकारात्मक (1) प्रमाण सेट करा. जिच्यामध्ये प्रकार  स्तंभ पर्यायी आहे";
+$lang['check_promo']                        = "जाहिरात किंमत तपासा";
