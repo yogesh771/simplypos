@@ -1,0 +1,67 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch and 'origin/master' have diverged,
+# and have 1 and 2 different commits each, respectively.
+#   (use "git pull" to merge the remote branch into yours)
+#
+# Changes to be committed:
+#	modified:   shop/css/bootstrap.min.css
+#	modified:   shop/css/main.css
+#	new file:   shop/images/blog/blog-one.jpg
+#	new file:   shop/images/blog/blog-three.jpg
+#	new file:   shop/images/blog/blog-two.jpg
+#	new file:   shop/images/blog/man-four.jpg
+#	new file:   shop/images/blog/man-one.jpg
+#	new file:   shop/images/blog/man-three.jpg
+#	new file:   shop/images/blog/man-two.jpg
+#	new file:   shop/images/blog/socials.png
+#	new file:   shop/images/home/bg_border.png
+#	new file:   shop/images/home/gallery1.jpg
+#	new file:   shop/images/home/gallery2.jpg
+#	new file:   shop/images/home/gallery3.jpg
+#	new file:   shop/images/home/gallery4.jpg
+#	new file:   shop/images/home/girl1.jpg
+#	new file:   shop/images/home/girl2.jpg
+#	new file:   shop/images/home/girl3.jpg
+#	new file:   shop/images/home/iframe1.png
+#	new file:   shop/images/home/iframe2.png
+#	new file:   shop/images/home/iframe3.png
+#	new file:   shop/images/home/iframe4.png
+#	new file:   shop/images/home/logo.png
+#	new file:   shop/images/home/map.png
+#	new file:   shop/images/home/partner1.png
+#	new file:   shop/images/home/partner2.png
+#	new file:   shop/images/home/partner3.png
+#	new file:   shop/images/home/partner4.png
+#	new file:   shop/images/home/pricing.png
+#	new file:   shop/images/home/product1.jpg
+#	new file:   shop/images/home/product2.jpg
+#	new file:   shop/images/home/product3.jpg
+#	new file:   shop/images/home/product4.jpg
+#	new file:   shop/images/home/product5.jpg
+#	new file:   shop/images/home/product6.jpg
+#	new file:   shop/images/home/recommend1.jpg
+#	new file:   shop/images/home/recommend2.jpg
+#	new file:   shop/images/home/recommend3.jpg
+#	new file:   shop/images/home/shipping.jpg
+#	new file:   shop/images/product-details/similar1.jpg
+#	new file:   shop/images/product-details/similar2.jpg
+#	new file:   shop/images/product-details/similar3.jpg
+#	new file:   shop/images/shop/advertisement.jpg
+#	new file:   shop/images/shop/product10.jpg
+#	new file:   shop/images/shop/product11.jpg
+#	new file:   shop/images/shop/product12.jpg
+#	new file:   shop/images/shop/product7.jpg
+#	new file:   shop/images/shop/product8.jpg
+#	new file:   shop/images/shop/product9.jpg
+#	modified:   shop/index.php
+#	modified:   shop/js/finalscript.js
+#	modified:   shop/templates/cart.php
+#	modified:   shop/templates/home.php
+#	new file:   shop/templates/home2.php
+#	modified:   shop/templates/login.php
+#	new file:   shop/templates/logout.php
+#
+

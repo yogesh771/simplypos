@@ -46,11 +46,12 @@ $config['stripe_publishable_key']		= $config['TestMode'] ? '' : '';
  * Authorize.net API Keys
  * ---------------------- 
  * You may obtain these by visiting account settings link and then API keys at https://authorize.net/
+   'api_url' => ($config['TestMode'] ? 'https://test.authorize.net/gateway/transact.dll' : 'https://secure.authorize.net/gateway/transact.dll')
  */
 $config['authorize'] = array(
-    'api_login_id' => ($config['TestMode'] ? '' : ''),
-    'api_transaction_key' => ($config['TestMode'] ? '' : ''),
-    'api_url' => ($config['TestMode'] ? 'https://test.authorize.net/gateway/transact.dll' : 'https://secure.authorize.net/gateway/transact.dll')
+    'api_login_id' => ($config['TestMode'] ? '' : '7P7Q23vrY'),
+    'api_transaction_key' => ($config['TestMode'] ? '' : '39VC5q3fqq6797Lv'),
+    'api_url' => ($config['TestMode'] ? 'https://test.authorize.net/gateway/transact.dll' : 'https://test.authorize.net/gateway/transact.dll')
     );
 
 /* ***************** instamojo ***************** */
@@ -64,5 +65,19 @@ $config['instamojo'] = array(
     'AUTH_TOKEN' => ($config['TestMode'] ? '3565625b6923d2dfbe8fb10b5b585648' : '3565625b6923d2dfbe8fb10b5b585648'),
     'API_URL' => ($config['TestMode'] ? 'https://test.instamojo.com/api/1.1/' : 'https://www.instamojo.com/api/1.1/')
 );
+
+/* ***************** CCAvenue ***************** */
+/* 
+ * CCAvenue Keys
+ * ----------------------  
+ */
+
+$config['ccavenue'] = array(
+    'MERCHANT_ID' => ($config['TestMode'] ? '1' : '1'),
+    'ACCESS_CODE' => ($config['TestMode'] ? '2' : '2'),
+    'API_KEY'     => ($config['TestMode'] ? '3' : '3'),
+    'API_URL'     => ($config['TestMode'] ? 'https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction' : 'https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction')
+);
+
 /* End of file payment_gateways.php */
 /* Location: ./sma/config/payment_gateways.php */

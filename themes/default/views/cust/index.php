@@ -46,13 +46,7 @@
 						</div>
 					</div>
 					</div>
-					<div class="col-lg-4"></div>
-					<div class="col-lg-4">
-						<div class="form-group">
-							<?php echo form_submit('send', $this->lang->line("send"), 'id="send" class="btn btn-primary"'); ?>
-						</div>
-					</div>
-					<div class="col-lg-4"></div>
+					
 				<?= form_close(); ?>
 				
             </div>

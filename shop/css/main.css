@@ -1506,14 +1506,6 @@ h2.title {
   overflow: hidden;
 }
 
-.login-form {
-
-}
-
-.signup-form {
-
-}
-
 .login-form h2, .signup-form h2 {
   color: #696763;
   font-family: 'Roboto', sans-serif;
@@ -1719,7 +1711,6 @@ h2.title {
 
 .cart_quantity_input {
   color: #696763;
-  float: left;
   font-size: 16px;
   text-align: center;
   font-family: 'Roboto',sans-serif;
@@ -2740,6 +2731,31 @@ tr p {
 .table-responsive .cart_delete{
 	margin:0;
 }
+.desktop-view{
+	display:block;
+}
+.mobile-view.ng-scope, .total-mobile{
+	display:none;
+}
+.navbar-nav > li.active > a {
+    color: #fff;
+}
+.shop-menu > .btn.btn-link.btn-md .fa {
+    padding: 0 4px 0 0;
+}
+.shop-menu > .btn.btn-link.btn-md {
+    color: #696763;
+    padding: 9px 0 0 26px;
+}
+
+.active a{
+		background:#fdb45e;
+		color:#eee;
+}
+.active .image-outer a{
+		background:none;
+		color:#eee;
+}
 @media(min-width:768px) {
 .container.wrapper.login-page.ng-scope {
     padding: 45px 0;
@@ -2748,9 +2764,10 @@ tr p {
     margin-bottom: 42px;
 }
 .active a{
-		background:#eee;
-		color:#fdb45e;
+		background:#fdb45e;
+		color:#eee;
 }
+
 .dropdown-menu.mainmenu.pull-left {
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
     border: medium none;
@@ -3233,6 +3250,51 @@ tr p {
 	}
 	section.middle_section {
 		padding-top: 200px;
+	}
+	.cart_menu {
+		display: none;
+	}
+	.cart-right {
+		float: right;
+		max-width: 110px;
+		min-width: 105px;
+		padding: 7px 0;
+		text-align: center;
+		vertical-align: middle;
+	}
+	.cart-left {
+		float: left;
+		padding: 6px 0 0 18px;
+	}
+	.mobile-view.ng-scope {
+		border: 1px solid #e6e4df;
+		display: block;
+		float: left;
+		margin-bottom: 15px;
+		width: 100%;
+		display:block;
+	}
+	.total-mobile{
+		display:block;
+	}
+	.desktop-view{
+		display:none;
+	}
+	.product-price {
+		font-size: 16px;
+		font-weight: bold;
+		padding: 7px 0 0;
+	}
+	.total-mobile {
+		border: 1px solid #e6e4df;
+		display: block;
+		padding: 10px 17px;
+	}
+	.tot-text {
+		float: left;
+	}
+	.tot-price {
+		float: right;
 	}
 }
 .col-sm-12.search_box input {

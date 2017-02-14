@@ -185,6 +185,7 @@ body:before, body:after {
 #pos #cp #cpinner {
     min-width: 500px;
     max-width: 65%;
+	width: 65%;
     float: left;
     margin-left: 2%;
     padding:10px 10px 5px 10px;
@@ -348,17 +349,10 @@ div#s2id_poswarehouse {
 
 @media only screen and (max-width: 1024px) {
     body { width: 1024px !important; padding: 0; margin: 0; }
-	/*#suspend{display: none;}
-	#print_order{display: none;}
-	#payment{height: 51px!important;}*/
-	#product-list{min-height:306px!important;}
-	#left-middle{min-height:306px!important;}
 	#poscustomer{display: none!important;}
-	#s2id_poscustomer{display: none!important;}
-	#sales_icon{display: none!important;}
+	#s2id_poscustomer{display: none;}
+	/*#sales_icon{display: none;}*/
 	#s2id_poswarehouse{display: none!important;}
-/*	#register_details, #close_register, #add_expense, #today_profit,#today_sale, #pos_setting,#pos_shortcuts, #pos_view, .hidden-xs {display: none!important;}*/
-	/*.addIcon_qr{display:block!important;}*/
 	.input-group-addon.qr_main{ display:block; }
 	
 
@@ -368,7 +362,7 @@ div#s2id_poswarehouse {
 	}
 	#add_item {
 		width: 92%;
-		height: 28px;
+		height: 33px;
 	}
 		#pos #cp #cpinner { max-width: 50%; }
     #pos .btn-tran, #pos .btn-prni, #pos .btn-prni span { max-width: 23%; }

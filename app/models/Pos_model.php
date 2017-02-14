@@ -365,6 +365,9 @@ class Pos_model extends CI_Model
                                 $msg[] = lang('payment_failed');
                                 $msg[] = '<p class="text-danger">' . $result['error'] . '</p>';
                             }
+                        }elseif ($payment['paid_by'] == 'ccavenue') { 
+                            $_url = base_url('pos/ccavenue_init').'?sid='.$sale_id; 
+                             $data['redirect_pay_url'] =  $_url;
                         } 
                         else {
                             if ($payment['paid_by'] == 'gift_card') {
@@ -1373,6 +1376,66 @@ class Pos_model extends CI_Model
             return $sid;
         endif;
         
+        return false;
+    }
+    
+    public  function addCcavenueTransaction($data){
+        $arr                 =  array();
+        $arr['order_id']      = $data["sale_id"];
+        $arr['request_data']  = serialize($data["req_data"]);
+        $arr['created_time']  =  date("Y-m-d H:i:s");  
+        $this->db->insert('ccavenue', $arr);   
+    }
+    
+    public function getCcavenueTransaction($arr){
+        if(is_array($arr)):
+            $q = $this->db->get_where('ccavenue',$arr, 1);
+            if ($q->num_rows() > 0) {
+                return $q->row();
+            }
+            endif;
+        return FALSE;
+    }
+    public function updateCcavenueTransaction($id, $data = array())
+    {
+         
+        $this->db->where('order_id', $id);
+        if ($this->db->update('ccavenue', $data)) {
+            return true;
+        }
+        return false;
+    }
+    public function CcavenueAfterSale($result,$sid){
+        $payment = array();
+        $payment['transaction_id']  = $result['tracking_id'];
+        $payment['amount']          = $result['amount'];
+        $payment['currency']        = $result['currency']; 
+        $payment['sale_id']             = $sid; 
+        $payment['pos_paid']        = $result['amount']; 
+        $payment['paid_by']         = 'ccavenue'; 
+        $trans_date = $this->CcavenueTransTime($result['trans_date']);
+        if(!empty($trans_date)):
+            $payment['date']            = $trans_date ;
+        endif; 
+         
+        if(!empty($payment['transaction_id']) && !empty($payment['amount']) &&!empty($payment['sale_id']) ): 
+          
+            $this->db->insert('payments', $payment);
+            $pay_id = $this->db->insert_id();   
+            $this->site->updateReference('pay');
+            $this->site->syncSalePayments($sid);
+            return $sid;
+        endif;
+        
+        return false;
+    }
+    
+   function CcavenueTransTime($time){
+        if(!empty($time)){ 
+            $arr1 = explode(" ",$time) ;
+            $arr2 = explode("/",$arr1[0]) ; 
+            return $dt = $arr2[2].'-'.$arr2[1].'-'.$arr2[0].' '.$arr1[1];
+        }
         return false;
     }
 

@@ -1,15 +1,17 @@
 <div class="container wrapper login-page" ng-controller="reg">
 	<div class="col-sm-4 col-sm-offset-1">
-		<div class="login-form"><!--login form-->
+		<div class="login-form" ng-controller="loginController"><!--login form-->
 			<h2>Login to your account</h2>
+			<p class="text-success bg-success" ng-show="success">{{success}}</p>
+			<p class="text-danger bg-danger" ng-show="error">{{error}}</p>
 			<form action="#">
-				<input type="text" placeholder="Name" />
-				<input type="email" placeholder="Email Address" />
+				<input type="text" id="username" placeholder="Name" ng-model="info.username" />
+				<input type="password" id="password" placeholder="Email Address" ng-model="info.password" />
 				<span>
 					<input type="checkbox" class="checkbox"> 
 					Keep me signed in
 				</span>
-				<button type="submit" class="btn btn-default">Login</button>
+				<button type="button" ng-click="login(info);" class="btn btn-lg">Login</button>
 			</form>
 		</div><!--/login form-->
 	</div>

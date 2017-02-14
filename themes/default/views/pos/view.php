@@ -104,8 +104,8 @@ $inv->customer = $customer->name;
                 	        $tax_summary[$row->tax_code]['code'] = $row->tax_code;
                 	        $tax_summary[$row->tax_code]['rate'] = $row->tax_rate;
                 	    }
-                	    echo '<tr><td colspan="2" class="no-border">#' . $r . ': &nbsp;&nbsp;' . product_name($row->product_name) . ($row->variant ? ' (' . $row->variant . ')' : '') . '<span class="pull-right">' . ($row->tax_code ? '*'.$row->tax_code : '') . '</span></td></tr>';
-                	    echo '<tr><td class="no-border border-bottom">' . $this->sma->formatQuantity($row->unit_quantity) . ' x ';
+                	    /*echo '<tr><td colspan="2" class="no-border">#' . $r . ': &nbsp;&nbsp;' . product_name($row->product_name) . ($row->variant ? ' (' . $row->variant . ')' : '') . '<span class="pull-right">' . ($row->tax_code ? '*'.$row->tax_code : '') . '</span></td></tr>';*/
+                	    echo '<tr><td   class="no-border">#' . $r . ': &nbsp;&nbsp;' . product_name($row->product_name) . ($row->variant ? ' (' . $row->variant . ')' : '') . '</td><td class="no-border border-bottom">' . $this->sma->formatQuantity($row->unit_quantity) . ' x ';
 // changed  BY SW  for quantity display 30012016
                 	    if ($row->item_discount != 0) {
                 	        echo '<del>' . $this->sma->formatMoney($row->net_unit_price + ($row->item_discount / $row->quantity) + ($row->item_tax / $row->quantity)) . '</del> ';
@@ -132,7 +132,7 @@ $inv->customer = $customer->name;
                                 $tax_summary[$row->tax_code]['code'] = $row->tax_code;
                                 $tax_summary[$row->tax_code]['rate'] = $row->tax_rate;
                             }
-                            echo '<tr><td colspan="2" class="no-border">#' . $r . ': &nbsp;&nbsp;' . product_name($row->product_name) . ($row->variant ? ' (' . $row->variant . ')' : '') . '<span class="pull-right">' . ($row->tax_code ? '*'.$row->tax_code : '') . '</span></td></tr>';
+                            echo '<tr><td colspan="3" class="no-border">#' . $r . ': &nbsp;&nbsp;' . product_name($row->product_name) . ($row->variant ? ' (' . $row->variant . ')' : '') . '<span class="pull-right">' . ($row->tax_code ? '*'.$row->tax_code : '') . '</span></td></tr>';
                             echo '<tr><td class="no-border border-bottom">' . $this->sma->formatQuantity($row->unit_quantity) . ' x ';
 // changed  BY SW  for quantity display 30012016
                             if ($row->item_discount != 0) {
@@ -147,7 +147,7 @@ $inv->customer = $customer->name;
                 </tbody>
                 <tfoot>
                 <tr>
-                    <th><?=lang("total");?></th>
+                    <th colspan="2" ><?=lang("total");?></th>
                     <th class="text-right"><?=$this->sma->formatMoney($return_sale ? (($inv->total + $inv->product_tax)+($return_sale->total + $return_sale->product_tax)) : ($inv->total + $inv->product_tax));?></th>
                 </tr>
                 <?php
@@ -167,25 +167,25 @@ $inv->customer = $customer->name;
                 	if ($inv->rounding) {
                     ?>
                     <tr>
-                        <th><?=lang("rounding");?></th>
+                        <th colspan="2" ><?=lang("rounding");?></th>
                         <th class="text-right"><?= $this->sma->formatMoney($inv->rounding);?></th>
                     </tr>
                     <tr>
-                        <th><?=lang("grand_total");?></th>
+                        <th colspan="2" ><?=lang("grand_total");?></th>
                         <th class="text-right"><?=$this->sma->formatMoney($return_sale ? (($inv->grand_total + $inv->rounding)+$return_sale->grand_total) : ($inv->grand_total + $inv->rounding));?></th>
                     </tr>
                 <?php } else { ?>
                     <tr>
-                        <th><?=lang("grand_total");?></th>
+                        <th colspan="2" ><?=lang("grand_total");?></th>
                         <th class="text-right"><?=$this->sma->formatMoney($return_sale ? ($inv->grand_total+$return_sale->grand_total) : $inv->grand_total);?></th>
                     </tr>
                 <?php } if ($inv->paid < $inv->grand_total) { ?>
                     <tr>
-                        <th><?=lang("paid_amount");?></th>
+                        <th colspan="2" ><?=lang("paid_amount");?></th>
                         <th class="text-right"><?=$this->sma->formatMoney($return_sale ? ($inv->paid+$return_sale->paid) : $inv->paid);?></th>
                     </tr>
                     <tr>
-                        <th><?=lang("due_amount");?></th>
+                        <th colspan="2" ><?=lang("due_amount");?></th>
                         <th class="text-right"><?=$this->sma->formatMoney(($return_sale ? (($inv->grand_total + $inv->rounding)+$return_sale->grand_total) : ($inv->grand_total + $inv->rounding)) - ($return_sale ? ($inv->paid+$return_sale->paid) : $inv->paid));?></th>
                     </tr>
                 <?php } ?>
@@ -208,6 +208,12 @@ $inv->customer = $customer->name;
             	        }
             	         elseif ($payment->paid_by == 'instomojo' && $payment->transaction_id) {
             	            echo '<td>' . lang("paid_by") . ': Instomojo</td>';
+            	            echo '<td>Payment ID: ' . $payment->transaction_id . '</td>';
+            	            echo '<td>' . lang("amount") . ': ' . $this->sma->formatMoney($payment->pos_paid) . ($payment->return_id ? ' (' . lang('returned') . ')' : '') . '</td>';
+            	            echo '<td>' . lang("balance") . ': ' . ($payment->pos_balance > 0 ? $this->sma->formatMoney($payment->pos_balance) : 0) . '</td>';
+            	        }
+            	        elseif ($payment->paid_by == 'ccavenue' && $payment->transaction_id) {
+            	            echo '<td>' . lang("paid_by") . ': CCavenue</td>';
             	            echo '<td>Payment ID: ' . $payment->transaction_id . '</td>';
             	            echo '<td>' . lang("amount") . ': ' . $this->sma->formatMoney($payment->pos_paid) . ($payment->return_id ? ' (' . lang('returned') . ')' : '') . '</td>';
             	            echo '<td>' . lang("balance") . ': ' . ($payment->pos_balance > 0 ? $this->sma->formatMoney($payment->pos_balance) : 0) . '</td>';

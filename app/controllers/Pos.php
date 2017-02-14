@@ -1057,6 +1057,7 @@ $print = array();
                 'item_order'                => $this->input->post('item_order'),
                 'after_sale_page'           => $this->input->post('after_sale_page'),
                 'instamojo'                 => $this->input->post('instamojo'),
+                'ccavenue'                  => $this->input->post('ccavenue'),
             );
             $payment_config = array(
                 'APIUsername'            => $this->input->post('APIUsername'),
@@ -1068,6 +1069,9 @@ $print = array();
                 'api_transaction_key'    => $this->input->post('api_transaction_key'),
                 'instamojo_api_key'    => $this->input->post('instamojo_api_key'),
                 'instamojo_auth_token'    => $this->input->post('instamojo_auth_token'),
+                'ccavenue_merchant_id'    => $this->input->post('ccavenue_merchant_id'),
+                'ccavenue_access_code'    => $this->input->post('ccavenue_access_code'),
+                'ccavenue_working_key'    => $this->input->post('ccavenue_working_key'),
             );
         } elseif ($this->input->post('update_settings')) {
             $this->session->set_flashdata('error', validation_errors());
@@ -1104,6 +1108,12 @@ $print = array();
             $instamojo = $this->config->item('instamojo'); 
             $this->data['instamojo_auth_token'] = $instamojo['AUTH_TOKEN'];
             $this->data['instamojo_api_key'] = $instamojo['API_KEY'];  
+            
+            $ccavenue = $this->config->item('ccavenue'); 
+            $this->data['ccavenue_merchant_id'] = $ccavenue['MERCHANT_ID'];
+            $this->data['ccavenue_access_code'] = $ccavenue['ACCESS_CODE'];      
+            $this->data['ccavenue_working_key'] = $ccavenue['API_KEY'];     
+            
             $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => '#', 'page' => lang('pos_settings')));
             $meta = array('page_title' => lang('pos_settings'), 'bc' => $bc);
             $this->page_construct('pos/settings', $meta, $this->data);
@@ -1129,6 +1139,9 @@ $print = array();
             'api_transaction_key'    => $config['api_transaction_key'],
             'instamojo_api_key'    => $config['instamojo_api_key'],
             'instamojo_auth_token'    => $config['instamojo_auth_token'],
+            'ccavenue_merchant_id'   => $config['ccavenue_merchant_id'],
+            'ccavenue_access_code'   => $config['ccavenue_access_code'],
+            'ccavenue_working_key'   => $config['ccavenue_working_key'],
         );
         $new_config = $this->parser->parse_string($file_contents, $parse_data);
 
@@ -1468,4 +1481,115 @@ $print = array();
             }
         endif;
     }  
+    public function ccavenue_init(){
+        $this->load->library('ccavenue'); 
+        $sale_id =  $this->input->get('sid');
+        if((int)$sale_id > 0):
+        $_req =   $this->pos_model->getCcavenueTransaction(array('order_id'=>$sale_id));  
+        if($_req->id):
+            $this->session->set_flashdata('message', "CCavenue payment process already  initiated");
+            redirect($this->pos_settings->after_sale_page ? "pos" : "pos/view/" . $sale_id);
+        endif;
+        $sale = $this->site->getSaleByID($sale_id) ;
+        if($sale->id == $sale_id):
+        $customer = $this->site->getCompanyByID($sale->customer_id); 
+        $ci = get_instance();
+        $ci->config->load('payment_gateways', TRUE);
+        $payment_config = $ci->config->item('payment_gateways');
+        $ccavenue_credential = $payment_config['ccavenue'];
+        $merchant_id    = isset($ccavenue_credential['MERCHANT_ID']) && !empty($ccavenue_credential['MERCHANT_ID'])? $ccavenue_credential['MERCHANT_ID']:'';
+        $access_code    = isset($ccavenue_credential['ACCESS_CODE']) && !empty($ccavenue_credential['ACCESS_CODE'])? $ccavenue_credential['ACCESS_CODE']:'';
+        $working_key    = isset($ccavenue_credential['API_KEY']) && !empty($ccavenue_credential['API_KEY'])? $ccavenue_credential['API_KEY']:'';
+        $API_URL        = isset($ccavenue_credential['API_URL']) && !empty($ccavenue_credential['API_URL'])? $ccavenue_credential['API_URL']:'';
+        $arr['tid'] = time();
+        $arr['merchant_id']     = $merchant_id;
+        $arr['order_id']        = $sale_id;
+        $arr['amount']          = ceil($sale->grand_total);
+        $arr['currency']        =  'INR';
+        $arr['redirect_url']    = base_url('pos/ccavenue_notify');
+        $arr['cancel_url']      = base_url('pos/ccavenue_cancel');
+        $arr['billing_name']    = $customer->name;
+        $arr['billing_tel']     = $customer->phone;
+        $arr['billing_email']   = $customer->email;
+        $arr['billing_city']    = $customer->city;
+        $arr['billing_state']   = $customer->state;
+        $arr['billing_zip']     = $customer->postal_code;
+        $arr['merchant_param1'] = $sale->reference_no;
+        try{
+            $api            = new Ccavenue($merchant_id, $access_code, $working_key);
+            $encrypted_data = $api->getPostData($arr); 
+            $this->data['merchant_id'] = $merchant_id;
+            $this->data['ccavenue_access_code'] = $access_code;      
+            $this->data['ccavenue_working_key'] = $working_key;      
+            $this->data['url'] = $API_URL;      
+            $this->data['encrypted_data'] = $encrypted_data;      
+            
+            $this->pos_model->addCcavenueTransaction(array('sale_id'=>$sale_id,'req_data'=>$arr));
+            $this->page_construct('pos/ccavenue', NULL, $this->data);
+        }
+        catch (Exception $e) {
+            echo   $e->getMessage();
+        }   
+         endif;
+        endif;
+    }
+    
+    public function ccavenue_notify(){
+        
+        $this->load->library('ccavenue'); 
+        $ci = get_instance();
+        $ci->config->load('payment_gateways', TRUE);
+        $payment_config = $ci->config->item('payment_gateways');
+        $ccavenue_credential = $payment_config['ccavenue'];
+        $merchant_id    = isset($ccavenue_credential['MERCHANT_ID']) && !empty($ccavenue_credential['MERCHANT_ID'])? $ccavenue_credential['MERCHANT_ID']:'';
+        $access_code    = isset($ccavenue_credential['ACCESS_CODE']) && !empty($ccavenue_credential['ACCESS_CODE'])? $ccavenue_credential['ACCESS_CODE']:'';
+        $working_key    = isset($ccavenue_credential['API_KEY']) && !empty($ccavenue_credential['API_KEY'])? $ccavenue_credential['API_KEY']:'';
+        $API_URL        = isset($ccavenue_credential['API_URL']) && !empty($ccavenue_credential['API_URL'])? $ccavenue_credential['API_URL']:'';
+       try{
+            $api            = new Ccavenue($merchant_id, $access_code, $working_key);
+            $_data1 = isset($_POST["encResp"])?$_POST["encResp"]:''; 
+            $decrypted_data = $api->getResultData($_data1);  
+            if(is_array($decrypted_data) ):
+                $id = isset($decrypted_data["order_id"])?$decrypted_data["order_id"]:null;
+                if((int)$id > 0):
+                    $_req =   $this->pos_model->getCcavenueTransaction(array('order_id'=>$id));  
+                    if(isset($_req->order_id)){
+                       $this->pos_model->updateCcavenueTransaction($id, array('response_data'=>serialize($decrypted_data),'update_time'=>date('Y-m-d H:i:s')));
+                    }
+                endif;
+                $o_status = isset($decrypted_data["order_status"])?$decrypted_data["order_status"]:null;
+                switch ($o_status) {
+                    case 'Success':
+                        $msg = 'success';
+                        $sid = $id;
+                        $tracking_id = isset($decrypted_data["tracking_id"])?$decrypted_data["tracking_id"]:null;
+                        $res = $this->pos_model->CcavenueAfterSale($decrypted_data,$sid);
+                            if($res):
+                              $this->session->set_flashdata('message', "payment done successfully");
+                              redirect($this->pos_settings->after_sale_page ? "pos" : "pos/view/" . $sid);
+                            endif; 
+                        break;
+                    case 'Failure':
+                        $msg = 'The transaction has been declined.';
+                        $this->session->set_flashdata('message', $msg);
+                        redirect($this->pos_settings->after_sale_page ? "pos" : "pos/view/" . $sid);
+                        break;
+                    default:
+                        break;
+                }               
+            endif;
+            redirect($this->pos_settings->after_sale_page ? "pos" : "pos/");         
+        }
+        catch (Exception $e) {
+            $this->session->set_flashdata('message', $e->getMessage());
+            redirect($this->pos_settings->after_sale_page ? "pos" : "pos/");
+        }   
+                    
+         
+        
+    }
+    
+    public function ccavenue_cancel(){
+        
+    }
 }

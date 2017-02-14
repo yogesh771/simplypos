@@ -65,16 +65,27 @@ function closeNav() {
                 <div class="row">
                     <div class="col-sm-4 logo-div" ng-controller="generalController">
                         <div class="logo pull-left">
-                            <span ng-repeat="item in items3" class="logo1" ng-class="{'active': item.id == states.activeItem}" ng-click="states.activeItem=item.id" ><a href="#/"><img src="{{loc}}/assets/uploads/logos/{{general['0'].logo}}" alt="" /></a></span>
-							<span ng-repeat="item in items3" class="logo2" ng-class="{'active': item.id == states.activeItem}" ng-click="states.activeItem=item.id" ><a href="#/"><img src="images/loco-small.png" alt="" /></a></span>
+                            <!--a  href="#/"><img src="http://pos.simplypos.in/assets/uploads/logos/{{detail.logo}}" alt="" /></a-->
+                            <span class="logo1" ng-class="{'active': item.id == states.activeItem}" ng-click="states.activeItem=item.id" ><a href="#/"><img src="http://pos.simplypos.in/assets/uploads/logos/{{general['0'].logo}}" alt="" /></a></span>
+							<span class="logo2" ng-class="{'active': item.id == states.activeItem}" ng-click="states.activeItem=item.id" ><a href="#/hom"><img src="images/loco-small.png" alt="" /></a></span>
                         </div>
                     </div>
                     <div class="col-sm-8 account-menu">
                         <div class="shop-menu pull-right">
                             <ul class="nav navbar-nav">
                                 <li ng-repeat="item in items2" class="item" ng-class="{'active': item.id == states.activeItem}" ng-click="states.activeItem=item.id"><a href="{{item.url}}"><i class="{{item.title2}} {{item.title3}}"></i>{{item.title}}</a></li>
+								<li>
+									<a href="#/logout" ng-show="header" ng-click="onBackKeyDown()" class="btn btn-link btn-md"><i class="fa-lock fa"></i>Logout</a>
+								</li>
+								<li>
+									<a href="#/home2" ng-show="header" ng-click="onBackKeyDown()" class="btn btn-link btn-md"><i class="fa-lock fa"></i>home2</a>
+								</li>
                             </ul>
+							
                         </div>
+						<div controller="loginController">
+						{{phone}}
+						</div>
                     </div>
                 </div>
             </div>
@@ -123,7 +134,6 @@ function closeNav() {
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.scrollUp.min.js"></script>
-    <script src="js/jquery.prettyPhoto.js"></script>
     <script>
         $(window).scroll(function() {
             var scroll = $(window).scrollTop();

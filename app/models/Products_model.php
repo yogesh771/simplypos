@@ -1073,5 +1073,65 @@ class Products_model extends CI_Model
         }
         return NULL;
     }
+    //-------------------------- Create API MODEL For SHOP-----------------------//
+    
+    public function getCategories($parent_id=null,$param=null) { 
+        $this->db->select('*');
+        
+        //------------------Parent ID ---------------------//
+        if($parent_id!==null):
+          $parent_id = !empty($parent_id)?$parent_id:0;
+          $this->db->where('parent_id', $parent_id);
+        endif; 
+        
+        //------------------Keyword---------------------//
+        if(isset($param) &&  is_array($param)):
+            $seach_keyword = isset($param['keyword']) && !empty($param['keyword'])?$param['keyword']:NULL;
+            if(!empty($seach_keyword)):
+                $this->db->where('name', $seach_keyword);
+            endif;
+        endif;
+        
+        $this->db->order_by('name');
+        $q = $this->db->get("categories");
+        if ($q->num_rows() > 0) {
+            return $q->result_array();
+        }
+        return FALSE;
+    }
+    
+    public function getAllProduct($param=null) {
+        $this->db->select('*');
+        if(is_array($param)):
+            //------------------Keyword---------------------//
+            $seach_keyword = isset($param['keyword']) && !empty($param['keyword'])?$param['keyword']:NULL;
+            if(!empty($seach_keyword)):
+                $this->db->like('name', $seach_keyword);
+            endif;
+            
+            //------------------Keyword---------------------//
+            $category_id = isset($param['category_id']) && !empty($param['category_id'])?$param['category_id']:NULL;
+            if(!empty($category_id)):
+                $this->db->where('category_id', $category_id);
+            endif;
+            
+            //------------------Limit ---------------------//
+            $seach_offset= isset($param['offset']) &&  $param['offset']!==null?(int)$param['offset']:NULL;
+            $seach_limit= isset($param['limit']) && $param['limit']!==null?(int)$param['limit']:NULL;  
+            if($seach_offset!==null && $seach_limit!==null): 
+                $this->db->limit($seach_limit, $seach_offset);
+            endif;
+            
+        endif;
+        
+        
+        $this->db->order_by('name');
+        $q = $this->db->get("products"); 
+       // echo $this->db->last_query(); 
+        if ($q->num_rows() > 0) {
+            return $q->result_array();
+        }
+        return FALSE;
+    }
 
 }

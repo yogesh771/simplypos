@@ -379,7 +379,7 @@
                             <?= form_dropdown('authorize', $yn, $pos->authorize, 'class="form-control" id="authorize" required="required"'); ?>
                         </div>
                     </div>
-                    <div class="clearfix"></div>
+                     <div class="clearfix"></div>
                     <div id="authorize_con">
                         <div class="col-md-6 col-sm-6">
                             <div class="form-group">
@@ -413,6 +413,34 @@
                             <div class="form-group">
                                <label for="instamojo_auth_token">  Instamojo Auth Token</label>
                                  <?= form_input('instamojo_auth_token', $instamojo_auth_token, 'class="form-control tip" id="instamojo_auth_token"'); ?>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="form-group">
+                            <label for="ccavenue"> CCavenue</label>
+                            <?= form_dropdown('ccavenue', $yn, $pos->ccavenue, 'class="form-control" id="ccavenue" required="required"'); ?>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div> 
+                    <div id="instamojo_con">
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="ccavenue_merchant_id"> Merchant Id</label>
+                                <?= form_input('ccavenue_merchant_id', $ccavenue_merchant_id, 'class="form-control tip" id="ccavenue_merchant_id"'); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                               <label for="ccavenue_access_code"> Access Code</label>
+                                 <?= form_input('ccavenue_access_code', $ccavenue_access_code, 'class="form-control tip" id="ccavenue_access_code"'); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                               <label for="ccavenue_working_key">  Working Key</label>
+                                 <?= form_input('ccavenue_working_key', $ccavenue_working_key, 'class="form-control tip" id="ccavenue_working_key"'); ?>
                             </div>
                         </div>
                         <div class="clearfix"></div>

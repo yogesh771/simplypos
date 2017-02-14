@@ -73,7 +73,7 @@ class Authorize_net
 	}
 	
 	// Authorize and capture a card
-	public function authorizeAndCapture() {
+	public function authorizeAndCapture() { 
 		// Load cURL lib
 		$this->CI->load->library('curl');
 		$this->response = $this->CI->curl->simple_post(

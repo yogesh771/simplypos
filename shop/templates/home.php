@@ -8,10 +8,9 @@
 			<div class="left-sidebar" id="accordion">
 				<h2>Category</h2>
 					<a ng-click="resetFilter()" type="button" class="category-link clear-all">All categories</a>
-				<div ng-repeat="detail in parentCategories">
-
-					<a type="button" class="category-link collapsed" data-parent="#accordion" ng-click="subCat(categories,detail.id); filters.category_id = detail.id" data-toggle="collapse" data-target="#pId_{{detail.id}}">{{detail.name}}</a>
-					<div id="pId_{{detail.id}}" class="collapse sub-menu">
+				<div class="panel panel-default" ng-repeat="category in categories">
+					<a type="button" class="category-link collapsed" data-parent="#accordion" ng-click="subCat(categories,category.id); filters.category_id = category.id" data-toggle="collapse" data-target="#pId_{{category.id}}">{{category.name}}</a>
+					<div id="pId_{{category.id}}" class="collapse sub-menu">
 
 
 					</div>
@@ -29,7 +28,7 @@
 					<div class="clearfix"></div>
 				</div>
 				<div class="tab-pane fade active in" id="products" >
-						<div class="col-sm-3 col-xs-6" ng-repeat="detail in details| filter:searchText | filter:filters">
+						<div class="col-sm-3 col-xs-6" ng-repeat="detail in details | filter:searchText | filter:filters">
 							<div class="product-image-wrapper">
 								<div class="single-products">
 									<div class="productinfo text-center">

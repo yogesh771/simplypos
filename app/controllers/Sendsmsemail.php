@@ -86,6 +86,7 @@ class Sendsmsemail extends MY_Controller
             $attachment1 = !empty($file)? $this->upload_path.$file:NULL; 
             switch ($this->input->post('cmbtype')) {
                 case 'both':
+                case 'push_message':
                     $this->SendEmail($email_arr,$data['subject'],$content,$attachment1,$data['sender']) ;
                     $this->SendSms($mobile_arr,$content);
                     break;
@@ -121,12 +122,8 @@ class Sendsmsemail extends MY_Controller
              
             $this->CallAPI('POST', 'https://simplypos.in/api/api-message.php', $_postArr);       
             $this->session->set_flashdata('success', 'Message Send Successfully');
-            ?>
-           <script>
-             window.location.href='<?php echo base_url('sendsmsemail');?>?msg=done'
-            </script>
-
-            <?php
+            redirect(base_url('sendsmsemail').'?msg=done');
+           
             
         } elseif ($this->input->post('sender')) {
             $this->session->set_flashdata('error', validation_errors());
@@ -202,6 +199,20 @@ class Sendsmsemail extends MY_Controller
     }
     
     function CallSMS($mobile,$msg){
+    $datasms = array(
+                    "user" => "simplysafe",
+                    "password" => "Simplysafe1$$",
+                    "msisdn" => "+91" . $mobile,
+                    "sid" => "SIMPLY",
+                    "msg" => $msg,
+                    "fl" => 0,
+                    "gwid" => 2
+                );
+                $surlsms = 'http://payonlinerecharge.com/vendorsms/pushsms.aspx';
+      $res =  $this->post_to_url($surlsms,$datasms);
+    } 
+    
+    /*function CallSMS1($mobile,$msg){
       $url = 'http://payonlinerecharge.com/vendorsms/pushsms.aspx?user=simplysafe&password=Simplysafe1$$&msisdn=+91'.$mobile.'&sid=SIMPLY&msg='.$msg.'&fl=0&gwid=2';
      ?>
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -216,7 +227,7 @@ class Sendsmsemail extends MY_Controller
         </script>    
      <?php   
      return true;
-    } 
+    } */
     
     function CallAPI($method, $url, $data = false) {
         $curl = curl_init();
@@ -243,5 +254,20 @@ class Sendsmsemail extends MY_Controller
         curl_close($curl);
         return $result;
     }
-
+    
+function post_to_url($url, $data) {
+    $fields = '';
+    foreach ($data as $key => $value) {
+        $fields .= $key . '=' . $value . '&';
+    }
+    rtrim($fields, '&');
+    $post = curl_init();
+    curl_setopt($post, CURLOPT_URL, $url);
+    curl_setopt($post, CURLOPT_POST, count($data));
+    curl_setopt($post, CURLOPT_POSTFIELDS, $fields);
+    curl_setopt($post, CURLOPT_RETURNTRANSFER, 1);
+    $result = curl_exec($post);
+    curl_close($post);
+    return $result;
+}
 }

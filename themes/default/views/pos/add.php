@@ -225,8 +225,7 @@
                                     </table>
                                     <div style="clear:both;"></div>
                                 </div>
-                            </div>
-                            <div style="clear:both;"></div>
+								<div style="clear:both;"></div>
                             <div id="left-bottom">
                                 <table id="totalTable"
                                        style="width:100%; float:right; padding:5px; color:#000; background: #FFF;">
@@ -299,7 +298,7 @@
                                             </div>
                                         </div>
                                         <div class="col-xs-4" style="padding: 0;">
-                                            <button type="button" class="btn btn-success btn-block" id="payment" style="height:67px;">
+                                            <button type="button" class="btn btn-success btn-block" id="payment" style="height:68px;">
                                                 <i class="fa fa-money" style="margin-right: 5px;"></i><?=lang('payment');?>
                                             </button>
                                         </div>
@@ -338,6 +337,8 @@
                                   <?php /* ------ For checking Print/notPrint Button updated by SW 21/01/2017 --------------- */ ?>
                                 <input type="hidden" name="submit_type" id="submit_type" value="">
                             </div>
+                            </div>
+                            
                         </div>
 
                     </div>
@@ -354,18 +355,18 @@
                                 <?php
                                 	echo form_input('customer', (isset($_POST['customer']) ? $_POST['customer'] : ""), 'id="poscustomer"   data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("customer") . '" required="required" name="name_s2id_poscustomer" class="form-control pos-input-tip" style="width:100%;"');
                                 ?>
-                                    <div id="sales_icon" class="input-group-addon no-print" style="padding: 2px 8px; border-left: 0;@media (max-width:1024px){display:none;}">
+                                    <div id="sales_icon" class="input-group-addon first_menu no-print" style="padding: 2px 8px; border-left: 0;display:none;">
                                         <a href="#" id="toogle-customer-read-attr" class="external">
                                             <i class="fa fa-pencil" id="addIcon" style="font-size: 1.2em;"></i>
                                         </a>
                                     </div>
-                                    <div id="sales_icon" class="input-group-addon no-print" style="padding: 2px 7px; border-left: 0;@media (max-width:1024px){display:none;}">
+                                    <div id="sales_icon" class="input-group-addon second_menu no-print" style="padding: 2px 7px; display:none; border-left: 0;">
                                         <a href="#" id="view-customer" class="external" data-toggle="modal" data-target="#myModal">
                                             <i class="fa fa-eye" id="addIcon" style="font-size: 1.2em;"></i>
                                         </a>
                                     </div>
                                 <?php if ($Owner || $Admin || $GP['customers-add']) { ?>
-                                    <div id="sales_icon" class="input-group-addon no-print" style="padding: 2px 8px; @media (max-width:1024px){display:none;}">
+                                    <div id="sales_icon" class="input-group-addon third_menu no-print" style="padding: 2px 8px; display:none;">
                                         <a href="<?=site_url('customers/add');?>" id="add-customer" class="external" data-toggle="modal" data-target="#myModal">
                                             <i class="fa fa-plus-circle" id="addIcon" style="font-size: 1.5em;"></i>
                                         </a>
@@ -425,6 +426,7 @@
                                     <div id="ajaxproducts">
                                         <div id="item-list">
                                             <?php echo $products; ?>
+											
                                         </div>
                                         <div class="btn-group btn-group-justified pos-grid-nav">
                                             <div class="btn-group">
@@ -451,7 +453,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div style="clear:both;"></div>
+                      
+						<div style="clear:both;"></div>
                     </div>
                     <div style="clear:both;"></div>
                 </div>
@@ -470,10 +473,26 @@
     <button type="button" onclick="return actQRCam()" class="btn btn-info qr-code open-brands"><span>QR Code</span></button>
     <button type="button" id="addManually" class="btn btn-warning quick-product fa fa-truck">
 <span>Quick Sale</span></button>
+	<button type="button" id="customer_button" aria-hidden="true" class="btn btn-warning customer_button fa fa-user"><span>Customer</span></button>
     <button type="button" id="" class="btn btn-info Offline fa fa-refresh">
 <span>Offline</span></button>
  
- 
+ <script>
+$(document).ready(function(){
+    $("#customer_button").click(function(){
+        $("#s2id_poscustomer").toggle();
+    });
+	$("#customer_button").click(function(){
+        $(".first_menu").toggle();
+    });
+	$("#customer_button").click(function(){
+        $(".second_menu").toggle();
+    });
+	$("#customer_button").click(function(){
+        $(".third_menu").toggle();
+    });
+});
+ </script>
 </div>
 <div id="brands-slider">
     <div id="brands-list">
@@ -593,6 +612,7 @@
                                                     <?=$pos_settings->stripe ? '<option value="stripe">' . lang("stripe") . '</option>' : '';?>
                                                     <?=$pos_settings->authorize ? '<option value="authorize">' . lang("authorize") . '</option>' : '';?>
                                         <?php echo (isset($pos_settings->instamojo) && $pos_settings->instamojo=='1') ? ' <option value="instamojo">Instamojo</option>' : '';?>
+                                            <?php echo (isset($pos_settings->ccavenue) && $pos_settings->ccavenue=='1') ? ' <option value="ccavenue">CCavenue</option>' : '';?>
                                                 </select>
                                             </div>
                                         </div>
@@ -777,6 +797,13 @@
                                                                         </div>
                                                                     </div>
                                                                     <?php endif;?>
+                                                                    <?php if($pos_settings->ccavenue=='1'):?>
+                                                                    <div class="col-md-4 col-sm-4 col-xs-4">  
+                                                                        <div class="radio-div">
+                                                                            <input type="radio" class="card custom_payment_icon" name="colorRadio" value="ccavenue"><label for="checkbox1"><span><img src="<?= $assets ?>pos/images/ico11.png" alt=""></span></label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <?php endif;?>
                                                                 </div>
                     </div>
                 </div>
@@ -954,7 +981,7 @@
                             <input type="text" class="form-control kb-text" id="mcode">
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div id="pname" class="form-group">
                         <label for="mname" class="col-sm-4 control-label"><?=lang('product_name')?> *</label>
 
                         <div class="col-sm-8">
@@ -1012,9 +1039,27 @@
                         </tr>
                     </table>
                 </form>
+				<div class="row">
+					<div class="pull-left col-xs-12">
+						<div class="row">
+							<div class="col-xs-3">
+								<button id="mitems" class="btn btn-primary til-btn misc">Miscellaneous item</button>
+							</div>
+							<div class="col-xs-3">
+								<button id="scharges" class="btn btn-primary til-btn serv">service charges</button>
+							</div>
+							<div class="col-xs-3">
+								<button id="tcharges" class="btn btn-primary til-btn trans">transportation charges</button>
+							</div>
+							<div class="col-xs-3">
+								<button id="other" class="btn btn-primary til-btn othr">other</button>
+							</div>
+						</div>
+					</div>
+				</div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="addItemManually"><?=lang('submit')?></button>
+				<button type="button" class="btn btn-primary" id="addItemManually"><?=lang('submit')?></button>
             </div>
         </div>
     </div>
@@ -1221,12 +1266,12 @@ var lang = {unexpected_value: '<?=lang('unexpected_value');?>', select_above: '<
         var wh = $(window).height(),
             lth = $('#left-top').height(),
             lbh = $('#left-bottom').height();
-        $('#item-list').css("height", wh - 203);
-        $('#item-list').css("min-height", 353);
-        $('#left-middle').css("height", wh - lth - lbh - 102);
+        $('#cpinner').css("height", wh - 60);
+        $('#cpinner').css("min-height", 410);
+        $('#left-middle').css("height", wh - 75);
         $('#left-middle').css("min-height", 410);
-        $('#product-list').css("height", wh - lth - lbh - 107);
-        $('#product-list').css("min-height", 410);
+        $('#product-list').css("height", wh - 245);
+        $('#product-list').css("min-height", 240);
     }
     $(window).bind("resize", widthFunctions);
     $(document).ready(function () {
@@ -2261,6 +2306,52 @@ if(isset($_REQUEST['test'])){
 <script>
 $(document).ready(function(){
 $("#s2id_autogen8_search").prop('disabled', 'true');
+
+
+//quick sales start//
+	var pname_mi = 'Miscellaneous Item';
+	var pname_sc = 'Service Charges';
+	var pname_tc = 'Transportation Charges';
+	var qty = 1;
+	$("#pname").hide();
+	$('#mitems').click(function() {
+		$("#pname").hide();
+		$('#mname').val(pname_mi);
+		$('#mquantity').val(qty);
+		$('#mname').focus();
+		$('#mquantity').focus();
+		$('#mprice').focus();
+	});
+	
+	$('#scharges').click(function() {
+		$("#pname").hide();
+		$('#mname').val(pname_sc);
+		$('#mquantity').val(qty);
+		$('#mname').focus();
+		$('#mquantity').focus();
+		$('#mprice').focus();
+	});
+	
+	$('#tcharges').click(function() {
+		$("#pname").hide();
+		$('#mname').val(pname_tc);
+		$('#mquantity').val(qty);
+		$('#mname').focus();
+		$('#mquantity').focus();
+		$('#mprice').focus();
+	});
+	
+	$('#other').click(function() {
+		$("#pname").show();
+		$('#mname').val("");
+		$('#mquantity').val(qty);
+		$('#mname').focus();
+		$('#mquantity').focus();
+		$('#mprice').focus();
+	});
+//quick sales end//
+$('#mitems').trigger('click');
+
 })
 </script>
 </body>

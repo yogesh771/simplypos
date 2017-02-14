@@ -4,7 +4,7 @@
 <div class="box">
     <style>
         .select2-drop select2-drop-multi{width: 211px!important;}
-        .select2-container{width: 89%!important;}
+        .select2-container{width: 100%!important;}
     </style>
 
 
@@ -47,7 +47,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     <div class="form-group">
                         <?= lang("Customer List *", "product_details") ?>
                         <select id="customers" multiple="multiple" required="required"></select>
@@ -61,7 +61,8 @@
                         <?php $yn1 = array('email' => lang('Email'), 'sms' => lang('Sms'),); ?>   
                         <?= form_radio('cmbtype', 'email', $checked = FALSE, $extra = 'class="form-control" id="cmbtype"  '); ?> Email              
                         <?= form_radio('cmbtype', 'sms', $checked = FALSE, $extra = 'class="form-control" id="cmbtype"  '); ?> Sms              
-                        <?= form_radio('cmbtype', 'both', $checked = FALSE, $extra = 'class="form-control" id="cmbtype"  '); ?> Both Email & Sms              
+                        <?= form_radio('cmbtype', 'both', $checked = FALSE, $extra = 'class="form-control" id="cmbtype"  '); ?> Both Email & Sms        
+                        <?= form_radio('cmbtype', 'push_message', $checked = FALSE, $extra = 'class="form-control" id="cmbtype"  '); ?> Push Message                 
                     </div>
                     <div class="form-group">
                         <?= lang("Message Type ", "product_details") ?>
@@ -83,15 +84,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4"></div>
-            <div class="col-lg-4">
-                <div class="form-group">
+            <div>
+            	<div class="form-group" style="padding-left: 15px;">
                     <?php echo form_submit('send', $this->lang->line("send"), 'id="send" class="btn btn-primary"'); ?> 
                 </div>
             </div>
-            <div class="col-lg-4"></div>
-
-        </div>
+           
 
         <?= form_close(); ?>
     </div>
@@ -107,12 +105,11 @@ $(document).ready(function() {
                 url: "<?= site_url('customers/getCustomers') ?>",
                                     data:"data",
                 dataType: "json",
-                success: function (data) {
-                                            console.log(data.aaData);
+                success: function (data) { 
                     $('#customers').select2("destroy").empty().select2({closeOnSelect:false});
                     $.each(data.aaData, function () {
                     //console.log(data.aaData);
-                        $("<option />", {value:this['4']+':'+this['3'], text: this['3']+''}).appendTo($('#customers'));
+                        $("<option />", {value:this['4']+':'+this['3'], text: this['4']+'/'+this['3']+''}).appendTo($('#customers'));
                    });
                 $('#customers').select2('val');
                 $("#send").click(function() {

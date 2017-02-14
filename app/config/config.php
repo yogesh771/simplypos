@@ -19,6 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $config['base_url'] = 'http://pos.simplypos.in/';
 
+//$config['base_url'] = '[PROJECT_BASE_URL]';
 /*
 |--------------------------------------------------------------------------
 | Index File
@@ -431,7 +432,7 @@ $config['csrf_token_name'] = 'token';
 $config['csrf_cookie_name'] = 'token_cookie';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = FALSE;
-$config['csrf_exclude_uris'] = array('payments/paypalipn', 'payments/skrillipn', 'welcome/image_upload','api/v2');
+$config['csrf_exclude_uris'] = array('payments/paypalipn', 'payments/skrillipn', 'welcome/image_upload','api/v2','pos/ccavenue_notify','pos/ccavenue_cancel','api/catlog','api/store','api/user');
 
 /*
 |--------------------------------------------------------------------------

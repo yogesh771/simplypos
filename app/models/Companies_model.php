@@ -321,4 +321,63 @@ class Companies_model extends CI_Model
         
         return FALSE;
     }
+    
+    public function getAuthCustomer($param=NULL){
+        $this->db->select('id,name,phone,email');
+        $loginid       = isset($param['loginid']) && !empty($param['loginid'])?$param['loginid']:NULL;
+        $pass          = isset($param['pass']) && !empty($param['pass'])?$param['pass']:NULL;
+        $pass_type     = isset($param['pass_type']) && !empty($param['pass_type'])?$param['pass_type']:'password';
+            
+        switch ($pass_type) {
+            case 'pass_key':
+                    $where = "pass_key='$pass' AND (email='$loginid' OR phone='$loginid' )";
+                break;
+
+            default:
+                    $where = "password='$pass' AND (email='$loginid' OR phone='$loginid' )";
+                break;
+        }
+        $this->db->where($where);
+        $this->db->limit(1, 0);
+        $q = $this->db->get('companies'); 
+        // echo $this->db->last_query(); 
+        if ($q->num_rows() > 0) {
+            return $q->result_array();
+        }
+        return FALSE;
+    }
+    
+    
+    public function addEshopPasswordToken($data = array()){
+        $this->db->delete('eshop_password_token', array('user_id' => $data['user_id']));
+        if ($this->db->insert('eshop_password_token', $data)) {
+            $cid = $this->db->insert_id(); 
+            return $cid;
+        } 
+        return false;
+    }
+    
+    public function validateEshopPasswordToken($param = array()){
+       
+        $user_id   = isset($param['user_id']) && !empty($param['user_id'])?$param['user_id']:NULL;
+        $token      = isset($param['token']) && !empty($param['token'])?$param['token']:NULL;
+        $dt       = date("Y-m-d H:i:s");
+        if(empty($user_id) || empty($token)) :
+             return false;
+        endif;
+        $this->db->where('user_id  =', $user_id);
+        $this->db->where('token  =', $token);
+        $this->db->where('status  =', 1);
+        $this->db->where('token_end >=', $dt);
+        $this->db->where('token_start<=', $dt);
+        $q = $this->db->get('eshop_password_token');
+        // echo $this->db->last_query(); 
+        if ($q->num_rows() > 0) {
+            $res = $q->row();
+            return $res; 
+        }
+        return FALSE; 
+        return FALSE;
+    }
+    
 }

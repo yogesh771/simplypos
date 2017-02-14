@@ -2,45 +2,63 @@ var app = angular.module("myApp", ["ngRoute"]);
 app.config(function($routeProvider) {
     $routeProvider
     .when("/", {
-        templateUrl : "templates/home.php",
-        controller : "shopController"
+        templateUrl : "templates/login.php",
     })
     .when("/cart", {
         templateUrl : "templates/cart.php",
-		controller: "cartController"
+		controller:"buttonController"
+    })
+	.when("/home2", {
+        templateUrl : "templates/home2.php",
+		controller : "shopController2"
     })
     .when("/product-details", {
         templateUrl : "templates/product-details.php",
+		controller:"buttonController"
     })
     .when("/my_account", {
         templateUrl : "templates/my-account.php",
+		controller:"buttonController"
     })
     .when("/checkout", {
         templateUrl : "templates/checkout.php",
+		controller:"buttonController"
     })
     .when("/order", {
         templateUrl : "templates/order.php",
+		controller:"buttonController"
     })
-    .when("/login", {
-        templateUrl : "templates/login.php",
+    .when("/home", {
+        templateUrl : "templates/home.php",
+		controller : "shopController"
     })
     .when("/contact", {
         templateUrl : "templates/contact.php",
+		controller:"buttonController"
+    })
+	.when("/logout", {
+        templateUrl : "templates/logout.php",
+		controller: 'logoutController'
     })
 });
-
 app.controller("shopController",function($rootScope, $scope, $location, $http){
-    loc = $location.absUrl().split('/shop/');
+	$rootScope.header = true;
+    loc = $location.absUrl().split('/shop_v1/');
+	//loc = [];
+	//loc['0'] = 'http://pos.simplypos.in';
     $rootScope.loc = loc['0'];
     getInfo();
     function getInfo(){
-        $http.get(loc['0']+'/api-ecommarce.php?action=allProducts').success(function(data){
+        $http.get(loc['0']+'/api/catlog?action=allProducts').success(function(data){
+var arr = [];
 			angular.forEach(data, function(value, key) {
-					value.price = Math.round(value.price);				
+					value.price = Math.round(value.price);	
+arr.push(value);			
 			});
-            $scope.details = data;
+
+            $scope.details = arr;
         });
-        $http.get(loc['0']+'/api-ecommarce.php?action=allCategories').success(function(data){
+        $http.get(loc['0']+'/api/catlog?action=allCategories').success(function(data){
 			$scope.categories = data;
 			$scope.parentCategories = [];
             angular.forEach(data, function(value, key) {
@@ -82,12 +100,33 @@ app.controller("shopController",function($rootScope, $scope, $location, $http){
 		$scope.details = arr;*/
 	}
 		
-    $scope.filters = { };
+    //$scope.filters = { };
     $scope.resetFilter = function() {
         // set filter object back to blank
         $scope.filters = {}; 
     }
-    
+    getAuth($rootScope.user);
+	$rootScope.header = true;
+});
+app.controller("shopController2",function($rootScope, $scope, $http){
+	//$rootScope.header = true;
+    //loc = $location.absUrl().split('/shop_v1/');
+	//loc = [];
+	//loc['0'] = 'http://pos.simplypos.in';
+    //$rootScope.loc = loc['0'];
+    getInfo();
+    function getInfo(){
+        $http.get('http://pos.simplypos.in/api/catlog?action=allProducts').success(function(data){
+			//angular.forEach(data, function(value, key) {
+					//value.price = Math.round(value.price);				
+			//});
+			$scope.details = data;
+        });
+    }
+	
+	
+	
+	
 });
 
 app.controller('cartController',function($rootScope,$scope,$http){
@@ -100,22 +139,29 @@ app.controller('cartController',function($rootScope,$scope,$http){
     
    
 });
-
+app.controller('buttonController', function($rootScope){
+	$rootScope.header = true;
+})
 
 
 
 
 app.controller("generalController", function($rootScope, $scope, $location, $http){
-    loc = $location.absUrl().split('/shop/');
+    loc = $location.absUrl().split('/shop_v1/');
+	//loc = [];
+	//loc['0'] = 'http://pos.simplypos.in';
     $rootScope.loc = loc['0'];
     // To get employee details
     getInfo();
     function getInfo(){
         // Sending request to cusDetails.php files 
-        $http.get(loc['0']+'/api-ecommarce.php?action=generalDetails').success(function(data){
+        $http.get(loc['0']+'/api/store?action=generalDetails').success(function(data){
+			console.log(data);
             // Stored the returned data into scope 
             $scope.general = data;
-        });
+        }).error(function(error){
+			console.log(data);
+		});
     }
     
 });
@@ -135,7 +181,7 @@ app.controller('NavigationController', function ($scope) {
     $scope.items = [{
         id: 'item1',
         title: 'Home',
-        url: '#/'
+        url: '#/home'
     }, {
         id: 'item2',
         title: 'My Account',
@@ -157,12 +203,6 @@ app.controller('NavigationController', function ($scope) {
         url: '#/cart',
         title2:'fa-shopping-cart',
         title3:'fa'
-    }, {
-        id: 'item6',
-        title: 'Login',
-        url: '#/login',
-        title2:'fa-lock',
-        title3:'fa'
     }];
     $scope.items3 = [{
         id: 'item1',
@@ -170,3 +210,67 @@ app.controller('NavigationController', function ($scope) {
     }];
 });
 
+
+
+function getAuth(user){
+	if(!user){
+		location = '#/home';
+	}
+}
+
+app.controller('logoutController',function($rootScope,$scope,$http){
+	$rootScope.header = false;
+	delete $rootScope.user;
+	
+	location = '#/home';
+})
+
+app.controller("loginController",function($rootScope,$location,$scope,$http){
+	if($rootScope.user){
+		location = '#/home';
+	}
+	loc = $location.absUrl().split('/shop_v1/');
+	//loc = [];
+	//loc['0'] = 'http://pos.simplypos.in/api/user?action=auth';
+    $rootScope.loc = loc['0'];
+	$rootScope.header = false;
+	$scope.error = '';
+	$scope.login  = function(info){
+		$scope.error = '';
+		console.log(info);
+		if(angular.isUndefined(info))
+		{
+			$scope.error = 'Username and Password fields are blank.';
+			return;
+		}
+		if(angular.isUndefined(info.username) || info.username == '')
+		{
+			$scope.error = 'Username field is blank.';
+			return;
+		}
+		if(angular.isUndefined(info.password) || info.password == '')
+		{
+			$scope.error = 'Password field is blank.';
+			return;			
+		}
+		
+		$http.get(loc['0']+'&login_id='+info.username+'&pass_key='+info.password)
+        .success(function (response) {
+			if(response.id){
+				$scope.success = 'You are successfully login.';
+				$scope.error = '';
+				location = '#/home';
+				$rootScope.user = JSON.stringify(response);
+				$scope.success = '';
+				$scope.error = '';
+			}
+			else{
+				$scope.error = 'Please check password.';
+				$scope.success = '';
+				$scope.info.username = '';
+				$scope.info.password = '';
+			}
+        });
+		delete info;
+	}
+});

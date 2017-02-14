@@ -1,0 +1,11 @@
+ALTER TABLE  `sma_companies` ADD  `password` VARCHAR( 50 ) NOT NULL ;
+
+CREATE TABLE IF NOT EXISTS `sma_eshop_password_token` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `token` varchar(10) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `token_start` datetime NOT NULL,
+  `token_end` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
